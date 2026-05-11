@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Скрипты выполняются с полным доступом к браузеру. Добавляйте только скрипты из доверенных источников.",
         "delete_workspace": "Удалить рабочий проект",
         "delete_workspace_confirmation": "Вы уверены, что хотите удалить {projectName}? Это действие необратимо.",
+        "delete_workspace_confirmation_name": "Пожалуйста, введите {projectName} в поле ниже для подтверждения окончательного удаления этого рабочего проекта:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Удалить {projectName} вместе со всеми опросами, ответами, пользователями, действиями и атрибутами.",
         "delete_workspace_settings_description": "Удалить рабочий проект со всеми опросами, ответами, пользователями, действиями и атрибутами. Это действие необратимо.",
         "error_saving_workspace_information": "Ошибка при сохранении информации о рабочем проекте",

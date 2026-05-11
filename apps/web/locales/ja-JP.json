@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "スクリプトはブラウザへの完全なアクセス権で実行されます。信頼できるソースからのスクリプトのみを追加してください。",
         "delete_workspace": "ワークスペースを削除",
         "delete_workspace_confirmation": "{projectName}を削除してもよろしいですか？このアクションは元に戻せません。",
+        "delete_workspace_confirmation_name": "このワークスペースの完全な削除を確認するには、以下のフィールドに {projectName} と入力してください:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "{projectName}をすべてのフォーム、回答、人物、アクション、属性を含めて削除します。",
         "delete_workspace_settings_description": "すべてのフォーム、回答、人物、アクション、属性を含むワークスペースを削除します。この操作は元に戻せません。",
         "error_saving_workspace_information": "ワークスペース情報の保存中にエラーが発生しました",

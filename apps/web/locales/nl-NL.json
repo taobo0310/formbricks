@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Scripts worden uitgevoerd met volledige browsertoegang. Voeg alleen scripts toe van vertrouwde bronnen.",
         "delete_workspace": "Project verwijderen",
         "delete_workspace_confirmation": "Weet u zeker dat u {projectName} wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
+        "delete_workspace_confirmation_name": "Voer {projectName} in het volgende veld in om de definitieve verwijdering van dit project te bevestigen:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Verwijder {projectName} incl. alle enquêtes, reacties, mensen, acties en attributen.",
         "delete_workspace_settings_description": "Verwijder project met alle enquêtes, reacties, mensen, acties en attributen. Dit kan niet ongedaan worden gemaakt.",
         "error_saving_workspace_information": "Fout bij opslaan van projectinformatie",

@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "腳本將以完整瀏覽器權限執行。請僅加入來自可信來源的腳本。",
         "delete_workspace": "刪除工作區",
         "delete_workspace_confirmation": "您確定要刪除 {projectName} 嗎？此操作無法復原。",
+        "delete_workspace_confirmation_name": "請在下列欄位中輸入 {projectName} 以確認永久刪除此工作區：",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "刪除 {projectName}（包含所有問卷、回應、人員、操作和屬性）。",
         "delete_workspace_settings_description": "刪除工作區及其所有問卷、回應、人員、操作和屬性。此操作無法復原。",
         "error_saving_workspace_information": "儲存工作區資訊時發生錯誤",

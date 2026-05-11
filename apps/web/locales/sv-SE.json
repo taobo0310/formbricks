@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Skript körs med full åtkomst till webbläsaren. Lägg endast till skript från betrodda källor.",
         "delete_workspace": "Ta bort arbetsyta",
         "delete_workspace_confirmation": "Är du säker på att du vill ta bort {projectName}? Denna åtgärd kan inte ångras.",
+        "delete_workspace_confirmation_name": "Vänligen ange {projectName} i följande fält för att bekräfta den definitiva borttagningen av denna arbetsyta:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Ta bort {projectName} inkl. alla enkäter, svar, personer, åtgärder och attribut.",
         "delete_workspace_settings_description": "Ta bort arbetsyta med alla enkäter, svar, personer, åtgärder och attribut. Detta kan inte ångras.",
         "error_saving_workspace_information": "Fel vid sparande av arbetsytans information",

@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Les scripts s'exécutent avec un accès complet au navigateur. Ajoutez uniquement des scripts provenant de sources fiables.",
         "delete_workspace": "Supprimer le projet",
         "delete_workspace_confirmation": "Êtes-vous sûr de vouloir supprimer {projectName} ? Cette action ne peut pas être annulée.",
+        "delete_workspace_confirmation_name": "Veuillez entrer {projectName} dans le champ suivant pour confirmer la suppression définitive de ce projet :",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Supprimer {projectName} y compris toutes les enquêtes, réponses, personnes, actions et attributs.",
         "delete_workspace_settings_description": "Supprimer le projet avec toutes les enquêtes, réponses, personnes, actions et attributs. Cette opération est irréversible.",
         "error_saving_workspace_information": "Erreur lors de l'enregistrement des informations du projet",

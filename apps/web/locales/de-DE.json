@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Skripte werden mit vollem Browser-Zugriff ausgeführt. Fügen Sie nur Skripte aus vertrauenswürdigen Quellen hinzu.",
         "delete_workspace": "Projekt löschen",
         "delete_workspace_confirmation": "Sind Sie sicher, dass Sie {projectName} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+        "delete_workspace_confirmation_name": "Bitte gib {projectName} in das folgende Feld ein, um die endgültige Löschung dieses Projekts zu bestätigen:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "{projectName} inkl. aller Umfragen, Antworten, Personen, Aktionen und Attribute löschen.",
         "delete_workspace_settings_description": "Projekt mit allen Umfragen, Antworten, Personen, Aktionen und Attributen löschen. Das kann nicht rückgängig gemacht werden.",
         "error_saving_workspace_information": "Fehler beim Speichern der Projektinformationen",

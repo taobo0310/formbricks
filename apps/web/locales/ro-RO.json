@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Scripturile se execută cu acces complet la browser. Adaugă doar scripturi din surse de încredere.",
         "delete_workspace": "Șterge proiectul",
         "delete_workspace_confirmation": "Sigur vrei să ștergi {projectName}? Această acțiune nu poate fi anulată.",
+        "delete_workspace_confirmation_name": "Vă rugăm să introduceți {projectName} în câmpul următor pentru a confirma ștergerea definitivă a acestui proiect:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Șterge {projectName} incl. toate sondajele, răspunsurile, persoanele, acțiunile și atributele.",
         "delete_workspace_settings_description": "Șterge proiectul cu toate sondajele, răspunsurile, persoanele, acțiunile și atributele. Aceasta nu poate fi anulată.",
         "error_saving_workspace_information": "Eroare la salvarea informațiilor despre proiect",

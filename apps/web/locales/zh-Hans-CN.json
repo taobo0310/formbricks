@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "脚本将以完整浏览器权限执行。请仅添加来自可信来源的脚本。",
         "delete_workspace": "删除工作区",
         "delete_workspace_confirmation": "您确定要删除 {projectName} 吗？此操作无法撤销。",
+        "delete_workspace_confirmation_name": "请在下列字段中输入 {projectName} 以确认永久删除此工作区:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "删除 {projectName}，包括所有调查、回应、人员、动作和属性。",
         "delete_workspace_settings_description": "删除工作区及其所有调查、回应、人员、动作和属性。此操作无法撤销。",
         "error_saving_workspace_information": "保存工作区信息时出错",

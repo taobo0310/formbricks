@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "A parancsfájlok teljes böngésző-hozzáféréssel kerülnek végrehajtásra. Csak megbízható forrásokból származó parancsfájlokat adjon hozzá.",
         "delete_workspace": "Munkaterület törlése",
         "delete_workspace_confirmation": "Biztosan törölni szeretné a(z) {projectName} munkaterületet? Ezt a műveletet nem lehet visszavonni.",
+        "delete_workspace_confirmation_name": "Adja meg a(z) {projectName} munkaterület nevét a következő mezőben a munkaterület végleges törlésének megerősítéséhez:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "A(z) {projectName} munkaterület törlése, beleértve az összes kérdőívet, választ, személyt, műveletet és attribútumot is.",
         "delete_workspace_settings_description": "A munkaterület törlése az összes kérdőívvel, válasszal, személlyel, művelettel és attribútummal együtt. Ezt nem lehet visszavonni.",
         "error_saving_workspace_information": "Hiba a munkaterület-információk mentésekor",

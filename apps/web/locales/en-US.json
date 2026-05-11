@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Scripts execute with full browser access. Only add scripts from trusted sources.",
         "delete_workspace": "Delete Workspace",
         "delete_workspace_confirmation": "Are you sure you want to delete {projectName}? This action cannot be undone.",
+        "delete_workspace_confirmation_name": "Please enter {projectName} in the following field to confirm the definitive deletion of this workspace:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Delete {projectName} including all surveys, responses, people, actions and attributes.",
         "delete_workspace_settings_description": "Delete workspace with all surveys, responses, people, actions and attributes. This cannot be undone.",
         "error_saving_workspace_information": "Error saving workspace information",

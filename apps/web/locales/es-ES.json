@@ -2217,6 +2217,7 @@
         "custom_scripts_warning": "Los scripts se ejecutan con acceso completo al navegador. Solo añade scripts de fuentes confiables.",
         "delete_workspace": "Eliminar proyecto",
         "delete_workspace_confirmation": "¿Estás seguro de que quieres eliminar {projectName}? Esta acción no se puede deshacer.",
+        "delete_workspace_confirmation_name": "Por favor, introduce {projectName} en el siguiente campo para confirmar la eliminación definitiva de este proyecto:",
         "delete_workspace_name_includes_surveys_responses_people_and_more": "Eliminar {projectName} incluyendo todas las encuestas, respuestas, personas, acciones y atributos.",
         "delete_workspace_settings_description": "Eliminar proyecto con todas las encuestas, respuestas, personas, acciones y atributos. Esto no se puede deshacer.",
         "error_saving_workspace_information": "Error al guardar la información del proyecto",

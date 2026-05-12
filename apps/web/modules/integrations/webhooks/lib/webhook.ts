@@ -12,7 +12,11 @@ import {
 import { DANGEROUSLY_ALLOW_WEBHOOK_INTERNAL_URLS } from "@/lib/constants";
 import { generateStandardWebhookSignature, generateWebhookSecret } from "@/lib/crypto";
 import { validateInputs } from "@/lib/utils/validate";
-import { validateWebhookUrl } from "@/lib/utils/validate-webhook-url";
+import {
+  createPinnedDispatcher,
+  validateAndResolveWebhookUrl,
+  validateWebhookUrl,
+} from "@/lib/utils/validate-webhook-url";
 import { getTranslate } from "@/lingodotdev/server";
 import { isDiscordWebhook } from "@/modules/integrations/webhooks/lib/utils";
 import { TWebhookInput } from "../types/webhooks";
@@ -163,7 +167,7 @@ export const getWebhooks = async (environmentId: string): Promise<Webhook[]> => 
 };
 
 export const testEndpoint = async (url: string, secret?: string): Promise<boolean> => {
-  await validateWebhookUrl(url);
+  const address = await validateAndResolveWebhookUrl(url);
 
   if (isDiscordWebhook(url)) {
     throw new UnknownError("Discord webhooks are currently not supported.");
@@ -171,6 +175,10 @@ export const testEndpoint = async (url: string, secret?: string): Promise<boolea
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
+  // Hoisted out of the try so the finally can close it on every path.
+  // Pin TCP connect to the validated IP — closes DNS-rebinding TOCTOU between
+  // validation and fetch (undici otherwise resolves the hostname a second time).
+  const dispatcher = address ? createPinnedDispatcher(address) : undefined;
 
   try {
     const webhookMessageId = uuidv7();
@@ -203,7 +211,8 @@ export const testEndpoint = async (url: string, secret?: string): Promise<boolea
       headers: requestHeaders,
       signal: controller.signal,
       redirect: redirectMode,
-    });
+      dispatcher,
+    } as RequestInit & { dispatcher?: ReturnType<typeof createPinnedDispatcher> });
 
     const statusCode = response.status;
 
@@ -236,5 +245,9 @@ export const testEndpoint = async (url: string, secret?: string): Promise<boolea
     );
   } finally {
     clearTimeout(timeout);
+    // destroy() — not close() — force-kills sockets. close() drains gracefully and
+    // would deadlock if the endpoint accepted TCP but never responded (controller.abort()
+    // above cancels fetch, but destroy is the belt-and-suspenders cleanup).
+    await dispatcher?.destroy();
   }
 };

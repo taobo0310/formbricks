@@ -4,6 +4,7 @@ import { InvalidInputError, UniqueConstraintError } from "@formbricks/types/erro
 import { TResponseWithQuotaFull } from "@formbricks/types/quota";
 import { checkSurveyValidity } from "@/app/api/v2/client/[environmentId]/responses/lib/utils";
 import { reportApiError } from "@/app/lib/api/api-error-reporter";
+import { applyClientApiRateLimit } from "@/app/lib/api/client-rate-limit";
 import { parseAndValidateJsonBody } from "@/app/lib/api/parse-and-validate-json-body";
 import { responses } from "@/app/lib/api/response";
 import { transformErrorToDetails } from "@/app/lib/api/validator";
@@ -200,6 +201,11 @@ export const OPTIONS = async (): Promise<Response> => {
 
 export const POST = async (request: Request, context: Context): Promise<Response> => {
   const params = await context.params;
+  const rateLimitResponse = await applyClientApiRateLimit({ request, environmentId: params.environmentId });
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   const validatedInput = await parseAndValidateResponseInput(request, params.environmentId);
 
   if ("response" in validatedInput) {

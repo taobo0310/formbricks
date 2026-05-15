@@ -4,6 +4,7 @@ import {
   ZDisplayCreateInputV2,
 } from "@/app/api/v2/client/[environmentId]/displays/types/display";
 import { reportApiError } from "@/app/lib/api/api-error-reporter";
+import { applyClientApiRateLimit } from "@/app/lib/api/client-rate-limit";
 import { parseAndValidateJsonBody } from "@/app/lib/api/parse-and-validate-json-body";
 import { responses } from "@/app/lib/api/response";
 import { getOrganizationIdFromEnvironmentId } from "@/lib/utils/helper";
@@ -51,6 +52,11 @@ export const OPTIONS = async (): Promise<Response> => {
 
 export const POST = async (request: Request, context: Context): Promise<Response> => {
   const params = await context.params;
+  const rateLimitResponse = await applyClientApiRateLimit({ request, environmentId: params.environmentId });
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   const validatedInput = await parseAndValidateDisplayInput(request, params.environmentId);
 
   if ("response" in validatedInput) {

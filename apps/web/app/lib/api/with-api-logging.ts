@@ -4,6 +4,12 @@ import { logger } from "@formbricks/logger";
 import { TAuthenticationApiKey } from "@formbricks/types/auth";
 import { authenticateRequest } from "@/app/api/v1/auth";
 import { reportApiError } from "@/app/lib/api/api-error-reporter";
+import {
+  applyClientApiRateLimit,
+  getInvalidClientEnvironmentIdResponse,
+  getRateLimitErrorResponse,
+  validateClientEnvironmentId,
+} from "@/app/lib/api/client-rate-limit";
 import { responses } from "@/app/lib/api/response";
 import {
   AuthenticationMethod,
@@ -13,7 +19,7 @@ import {
 } from "@/app/middleware/endpoint-validator";
 import { AUDIT_LOG_ENABLED } from "@/lib/constants";
 import { authOptions } from "@/modules/auth/lib/authOptions";
-import { applyIPRateLimit, applyRateLimit } from "@/modules/core/rate-limit/helpers";
+import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
 import { queueAuditEvent } from "@/modules/ee/audit-logs/lib/handler";
@@ -59,11 +65,11 @@ enum ApiV1RouteTypeEnum {
   Integration = "integration",
 }
 
-/**
- * Apply client-side API rate limiting (IP-based)
- */
-const applyClientRateLimit = async (customRateLimitConfig?: TRateLimitConfig): Promise<void> => {
-  await applyIPRateLimit(customRateLimitConfig ?? rateLimitConfigs.api.client);
+const clientEnvironmentPathRegex = /^\/api\/v\d+\/client\/([^/]+)/;
+
+const getClientEnvironmentIdFromPathname = (pathname: string): string | null => {
+  const match = clientEnvironmentPathRegex.exec(pathname);
+  return match?.[1] ?? null;
 };
 
 /**
@@ -72,8 +78,11 @@ const applyClientRateLimit = async (customRateLimitConfig?: TRateLimitConfig): P
 const handleRateLimiting = async (
   authentication: TApiV1Authentication,
   routeType: ApiV1RouteTypeEnum,
+  req: NextRequest,
   customRateLimitConfig?: TRateLimitConfig
 ): Promise<Response | null> => {
+  const pathname = req.nextUrl.pathname;
+
   try {
     if (authentication) {
       if ("user" in authentication) {
@@ -89,10 +98,33 @@ const handleRateLimiting = async (
     }
 
     if (routeType === ApiV1RouteTypeEnum.Client) {
-      await applyClientRateLimit(customRateLimitConfig);
+      const environmentIdFromPath = getClientEnvironmentIdFromPathname(pathname);
+      if (!environmentIdFromPath) {
+        logger.error({ pathname }, "Unable to determine client API environment ID for rate limiting");
+        return responses.badRequestResponse("Environment ID is required", undefined, true);
+      }
+
+      const validEnvironmentId = validateClientEnvironmentId(environmentIdFromPath);
+      if (!validEnvironmentId) {
+        logger.warn(
+          { pathname, environmentId: environmentIdFromPath },
+          "Invalid client API environment ID for rate limiting"
+        );
+        return getInvalidClientEnvironmentIdResponse();
+      }
+
+      return await applyClientApiRateLimit({
+        request: req,
+        environmentId: validEnvironmentId,
+        customRateLimitConfig,
+      });
     }
   } catch (error) {
-    return responses.tooManyRequestsResponse(error instanceof Error ? error.message : "Rate limit exceeded");
+    return getRateLimitErrorResponse({
+      request: req,
+      error,
+      cors: routeType === ApiV1RouteTypeEnum.Client,
+    });
   }
 
   return null;
@@ -299,7 +331,12 @@ export const withV1ApiWrapper = <TResult extends { response: Response; error?: u
 
     // === Rate Limiting ===
     if (isRateLimited) {
-      const rateLimitResponse = await handleRateLimiting(authentication, routeType, customRateLimitConfig);
+      const rateLimitResponse = await handleRateLimiting(
+        authentication,
+        routeType,
+        req,
+        customRateLimitConfig
+      );
       if (rateLimitResponse) return rateLimitResponse;
     }
 
